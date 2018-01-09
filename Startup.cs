@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
 using TodoApi.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace simple_csharp_app
 {
@@ -38,6 +39,11 @@ namespace simple_csharp_app
             }
 
             app.UseMvc();
+
+            app.Use(async (context, next) => 
+            {
+                await context.Response.WriteAsync(Configuration["Greeting"]);
+            });
         }
     }
 }
